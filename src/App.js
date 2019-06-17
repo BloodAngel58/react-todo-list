@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import Form from "./components/form/Form.jsx";
-
+import Form from "./components/Form/Form.jsx";
 
 class App extends React.Component {
 
@@ -11,7 +10,5 @@ class App extends React.Component {
     );
   }
 }
-
-
 
 export default App;

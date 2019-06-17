@@ -1,0 +1,19 @@
+.input-task {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    border: 5px solid black;
+}
+
+.data-input__text {
+    flex-grow: 3;
+}
+
+.data-input__date {
+    flex-grow: 2;
+}
+
+.data-input__button {
+    flex-grow: 1;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "./node_modules/react";
 //import "./task.css";
 
 class Task extends React.Component {
@@ -18,11 +18,10 @@ class Task extends React.Component {
           className="toggle"
           onChange={() => checkHandler(id)}
           checked={isChecked}
-        />{" "}
+        />
         <label className={isChecked ? "text-field line-through" : "text-field"}>
-          {" "}
-          {text}{" "}
-        </label>{" "}
+          {text}
+        </label>
         <span className="date"> {date} </span>{" "}
         <input
           type="button"
