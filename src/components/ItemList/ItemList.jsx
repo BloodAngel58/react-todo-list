@@ -1,19 +1,20 @@
 import React from "react";
-import Item from "../Item/Item";
+import { Item } from "../Item/Item.jsx";
+
 class ItemList extends React.Component {
-  render() {
+  renderNews = () => {
     const { data } = this.props;
-    let newsTask = null;
 
     if (data.length) {
-      newsTask = data.map(function(item) {
+      data.map(function(item) {
         return <Item key={item.id} data={item} />;
       });
     } else {
-      newsTask = <p>К сожалению новостей нет</p>;
+      return <p>К сожалению новостей нет</p>;
     }
-
-    return newsTask;
+  };
+  render() {
+    return this.renderNews;
   }
 }
-export default ItemList;
+export { ItemList };

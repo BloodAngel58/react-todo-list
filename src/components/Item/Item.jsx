@@ -1,24 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
-//import "./task.css";
+//import PropTypes from "prop-types";
 
-class Task extends React.Component {
+class Item extends React.Component {
   render() {
-    const { title, date, id, deleteHandler } = this.props.data;
+    const { title, date, id } = this.props.data;
     return (
       <div className="task" id={id} key={id}>
         <input type="checkbox" className="toggle" />
         <label>{title}</label>
         <span className="date"> {date} </span>
-        <input
-          type="button"
-          className="destroy"
-          value="DELETE"
-          onClick={() => deleteHandler(id)}
-        />
+        <input type="button" className="destroy" value="DELETE" />
       </div>
     );
   }
 }
 
-export default Task;
+export { Item };

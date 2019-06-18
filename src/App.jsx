@@ -1,11 +1,12 @@
 import React from "react";
 import "./App.css";
 import Form from "./components/Form/Form.jsx";
-import ItemList from "./components/ItemList/ItemList.jsx";
+import { ItemList } from "./components/ItemList/ItemList.jsx";
 //import Item from "../src/components/Item/Item";
 //import PropTypes from 'prop-types';
 
-const myNews = [{
+const myNews = [
+  {
     id: 315831332,
     title: "Вернуться домой живым",
     date: "2019-06-17"
@@ -26,15 +27,11 @@ class App extends React.Component {
   state = {
     news: myNews
   };
-
   render() {
-    return ( < div >
-      <
-      Form / > < ItemList data = {
-        myNews
-      }
-      / > < /
-      div >
+    return (
+      <div>
+        <Form /> <ItemList data={myNews} />
+      </div>
     );
   }
 }
