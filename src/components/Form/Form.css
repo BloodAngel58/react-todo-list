@@ -4,6 +4,7 @@
     padding: 10px;
     margin: 10px;
     border: 5px solid black;
+    border-radius: 10px;
 }
 
 .data-input__text {
@@ -15,5 +16,31 @@
 }
 
 .data-input__button {
+    flex-grow: 1;
+}
+
+.task-item__sort {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    border: 5px solid blueviolet;
+    border-radius: 10px;
+}
+
+.task-item__filter {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    border: 5px solid green;
+    border-radius: 10px;
+}
+
+.input-text__filter {
+    flex-grow: 1;
+}
+
+.input-date__filter {
     flex-grow: 1;
 }
