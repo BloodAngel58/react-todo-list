@@ -1,4 +1,6 @@
 import React from "react";
+import "../Item/Item.css";
+
 //import PropTypes from "prop-types";
 
 class Item extends React.Component {
@@ -6,10 +8,14 @@ class Item extends React.Component {
     const { title, date, id } = this.props.data;
     return (
       <div className="task" id={id} key={id}>
-        <input type="checkbox" className="toggle" />
-        <label>{title}</label>
-        <span className="date"> {date} </span>
-        <input type="button" className="destroy" value="DELETE" />
+        <input type="checkbox" className="single-todo__check" />
+        <div className="single-todo__text">{title}</div>
+        <div className="single-todo__date"> {date} </div>
+        <input
+          type="button"
+          className="single-todo__destroy-button"
+          value=" x "
+        />
       </div>
     );
   }

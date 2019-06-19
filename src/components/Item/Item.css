@@ -1,0 +1,33 @@
+.task {
+    background-color: tan;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 9px;
+    padding: 15px;
+    align-items: baseline;
+}
+
+.single-todo__text {
+    margin: 10px;
+    padding: 10px;
+    justify-content: left;
+    flex-grow: 3;
+}
+
+.single-todo__date {
+    margin: 10px;
+    padding: 10px;
+    justify-content: right;
+    flex-grow: 2;
+}
+
+.single-todo__check {
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    justify-content: left;
+    flex-grow: 1;
+}
+
+.single-todo__destroy-button {}
