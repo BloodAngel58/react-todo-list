@@ -4,7 +4,7 @@ import { Item } from "../Item/Item.jsx";
 
 class ItemList extends React.Component {
   renderNews = data => {
-    if (data) {
+    if (data == null) {
       return data.map(function(item) {
         return <Item key={item.id} data={item} />;
       });
@@ -14,6 +14,7 @@ class ItemList extends React.Component {
 
   render() {
     const { data } = this.props;
+    //this.props.setLocalStorage(data);
     return <div className="single-todo__item">{this.renderNews(data)}</div>;
   }
 }

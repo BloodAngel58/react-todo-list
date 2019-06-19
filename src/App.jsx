@@ -7,22 +7,32 @@ import ItemsList from "./components/ItemsList/ItemsList.jsx";
 
 class App extends React.Component {
   state = { todoList: [] };
-
   componentDidMount() {
     this.setState({ todoList: this.getFromLocalStorage() });
   }
+  handleAddNews = data => {
+    const nextNews = [data, ...this.state.todoList];
+    this.setState({ todoList: nextNews });
+  };
 
   render() {
     return (
       <React.Fragment>
-        <Form />
-        <ItemsList data={this.state.todoList} />
+        <Form onAddNews={this.handleAddNews} />
+        <ItemsList
+          data={this.state.todoList}
+          setLocalStorage={this.updateLocalStorage}
+        />
       </React.Fragment>
     );
   }
   getFromLocalStorage = () => {
     const tasks = JSON.parse(localStorage.getItem("todo"));
     return tasks ? tasks : [];
+  };
+  updateLocalStorage = tasks => {
+    localStorage.clear();
+    localStorage.setItem("todo", JSON.stringify(tasks));
   };
 }
 export default App;
