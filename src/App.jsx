@@ -11,17 +11,22 @@ class App extends React.Component {
     this.setState({ todoList: this.getFromLocalStorage() });
   }
   handleAddNews = data => {
-    const nextNews = [data, ...this.state.todoList];
+    const nextNews = [...this.state.todoList, data];
     this.setState({ todoList: nextNews });
+    //this.updateLocalStorage(this.todoList);
   };
 
   render() {
     return (
       <React.Fragment>
-        <Form onAddNews={this.handleAddNews} />
+        <Form
+          onAddNews={this.handleAddNews}
+          updateLocalStorage={this.updateLocalStorage}
+          todoList={this.state.todoList}
+        />
         <ItemsList
           data={this.state.todoList}
-          setLocalStorage={this.updateLocalStorage}
+          updateLocalStorage={this.updateLocalStorage}
         />
       </React.Fragment>
     );
