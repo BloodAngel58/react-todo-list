@@ -4,12 +4,11 @@ import { Item } from "../Item/Item.jsx";
 
 class ItemList extends React.Component {
   renderNews = data => {
-    if (data) {
+    if (data.length) {
       return data.map(function(item) {
         return <Item key={item.id} data={item} />;
       });
     }
-    this.props.updateLocalStorage(data);
     return <p>К сожалению новостей нет</p>;
   };
 

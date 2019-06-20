@@ -22,7 +22,6 @@ class Form extends React.Component {
       title,
       date
     });
-    this.props.updateLocalStorage(this.props.todoList);
   };
   render() {
     const { title, date } = this.state;
