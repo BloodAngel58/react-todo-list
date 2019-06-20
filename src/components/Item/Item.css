@@ -25,6 +25,7 @@
 
 .single-todo__check {
     display: flex;
+    position: relative;
     margin: 10px;
     padding: 10px;
     justify-content: left;
@@ -32,3 +33,20 @@
 }
 
 .single-todo__destroy-button {}
+
+.todo-item__checked {
+    position: relative;
+}
+
+.todo-item__checked :after {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 3px;
+    left: 90px;
+    right: 100px;
+
+    top: 48%;
+    background-color: red;
+    align-items: baseline;
+}

@@ -15,15 +15,27 @@ class App extends React.Component {
   state = { todoList: arrTask };
 
   handleAddNews = data => {
-    const nextNews = [data, ...this.state.todoList];
+    const nextNews = [...this.state.todoList, data];
     this.setState({ todoList: nextNews });
+  };
+  deleteTasks = id => {
+    const nextNews = [...this.state.todoList];
+    //nextNews.splice(nextNews.findIndex(item => item.idTask === id), 1);
+    nextNews.forEach((task, index) => {
+      if (task.id === id) {
+        nextNews.splice(index, 1);
+      }
+    });
+    console.log(id);
+    this.setState({ todoList: nextNews });
+    console.log(nextNews);
   };
 
   render() {
     return (
       <React.Fragment>
         <Form onAddNews={this.handleAddNews} />
-        <ItemsList data={this.state.todoList} />
+        <ItemsList data={this.state.todoList} deleteTasks={this.deleteTasks} />
       </React.Fragment>
     );
   }
