@@ -5,14 +5,19 @@ import ItemsList from "./components/ItemsList/ItemsList.jsx";
 //import Item from "../src/components/Item/Item";
 //import PropTypes from 'prop-types';
 const arrTask = [
-  { id: "458364627", title: "Вернуться домой живым", date: "2019-06-19" },
-  { id: "729092535", title: "Погладить кота", date: "2019-06-20" },
-  { id: "600467454", title: "Покормить кота", date: "2019-06-20" },
-  { id: "496534360", title: "Потискать кота", date: "2019-06-22" },
-  { id: "104204056", title: "Уложить кота спать", date: "2019-06-23" }
+  { id: "458364627", title: "А", date: "2019-05-01" },
+  { id: "729092535", title: "Б", date: "2019-04-06" },
+  { id: "600467454", title: "В", date: "2019-01-11" },
+  { id: "496534360", title: "Г", date: "2019-08-16" },
+  { id: "104204056", title: "Д", date: "2019-11-21" }
 ];
 class App extends React.Component {
-  state = { todoList: arrTask };
+  state = {
+    todoList: arrTask,
+    selectInd: 1,
+    filterText: "",
+    filterDate: ""
+  };
 
   handleAddNews = data => {
     const nextNews = [...this.state.todoList, data];
@@ -28,50 +33,23 @@ class App extends React.Component {
     });
     this.setState({ todoList: nextNews });
   };
-  sortItem = v => {
-    const collator = new Intl.Collator();
-    const cloneTodoList = [...this.state.todoList];
-    switch (v) {
-      case 0:
-        break;
-      case 1: // сортировка по алфавиту
-        cloneTodoList.sort(function(a, b) {
-          return collator.compare(a.title, b.title);
-        });
-        this.setState({ todoList: cloneTodoList });
-        break;
-
-      case 2: // сортировка по алфавиту в обратном порядке
-        cloneTodoList.sort(function(a, b) {
-          return collator.compare(b.title, a.title);
-        });
-        this.setState({ todoList: cloneTodoList });
-        break;
-      case 3: // сортировка по дате
-        cloneTodoList.sort(function(a, b) {
-          return collator.compare(b.date, a.date);
-        });
-        this.setState({ todoList: cloneTodoList });
-        break;
-      case 4: // сортировка по дате в обратном порядке
-        cloneTodoList.sort(function(a, b) {
-          return collator.compare(a.date, b.date);
-        });
-        this.setState({ todoList: cloneTodoList });
-        break;
-      default:
-        break;
-    }
+  sortType = v => {
+    this.setState({ selectInd: v });
   };
-  dateFilter = s => {
-    let a = s.split(/-|\//);
-    return new Date(a[0], a[1] - 1, a[2]);
+  filterData = (text, date) => {
+    this.setState({ filterText: text, filterDate: date });
   };
   render() {
     return (
       <React.Fragment>
-        <Form onAddNews={this.handleAddNews} sortItem={this.sortItem} />
-        <ItemsList data={this.state.todoList} deleteTasks={this.deleteTasks} />
+        <Form onAddNews={this.handleAddNews} sortType={this.sortType} />
+        <ItemsList
+          data={this.state.todoList}
+          deleteTasks={this.deleteTasks}
+          selectInd={this.state.selectInd}
+          filterText={this.state.filterText}
+          filterDate={this.state.filterDate}
+        />
       </React.Fragment>
     );
   }

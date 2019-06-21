@@ -25,7 +25,7 @@ class Form extends React.Component {
   };
   onChangeSelectorHandler = e => {
     const selectInd = e.target.options.selectedIndex;
-    this.props.sortItem(selectInd);
+    this.props.sortType(selectInd);
   };
   render() {
     const { title, date } = this.state;
