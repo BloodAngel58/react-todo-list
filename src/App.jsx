@@ -33,14 +33,11 @@ class App extends React.Component {
     const cloneTodoList = [...this.state.todoList];
     switch (v) {
       case 0:
-        console.log("Дороу_ 0 ");
         break;
       case 1: // сортировка по алфавиту
         cloneTodoList.sort(function(a, b) {
-          console.log("Дороу");
           return collator.compare(a.title, b.title);
         });
-        console.log("Дороу 2 ");
         this.setState({ todoList: cloneTodoList });
         break;
 
@@ -63,7 +60,6 @@ class App extends React.Component {
         this.setState({ todoList: cloneTodoList });
         break;
       default:
-        console.log(v);
         break;
     }
   };
