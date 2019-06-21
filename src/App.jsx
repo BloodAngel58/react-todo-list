@@ -36,13 +36,21 @@ class App extends React.Component {
   sortType = v => {
     this.setState({ selectInd: v });
   };
-  filterData = (text, date) => {
-    this.setState({ filterText: text, filterDate: date });
+  filterData = date => {
+    this.setState({ filterDate: date });
+  };
+  filterText = text => {
+    this.setState({ filterText: text });
   };
   render() {
     return (
       <React.Fragment>
-        <Form onAddNews={this.handleAddNews} sortType={this.sortType} />
+        <Form
+          onAddNews={this.handleAddNews}
+          filterData={this.filterData}
+          filterText={this.filterText}
+          sortType={this.sortType}
+        />
         <ItemsList
           data={this.state.todoList}
           deleteTasks={this.deleteTasks}

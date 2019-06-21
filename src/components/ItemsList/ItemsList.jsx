@@ -4,9 +4,12 @@ import { Item } from "../Item/Item.jsx";
 
 class ItemList extends React.Component {
   renderNews = data => {
-    const tasks = [...this.props.data];
+    const tasks = [...data];
     const { filterText, filterDate, selectInd } = this.props;
+    // const { selectInd } = this.props;
     this.sortItem(tasks, selectInd);
+    this.filterTasks = (tasks, filterText, filterDate);
+    //this.sortItem(tasks, selectInd);
     const { deleteTasks } = this.props;
     if (tasks.length) {
       return tasks.map(function(item) {
@@ -50,27 +53,21 @@ class ItemList extends React.Component {
     }
   };
 
-  // filter = (task, filterText, filterDate) => {
-  //   if (filterText || filterDate) {
-  //     const filteredTasks = task.filter(task => {
-  //       if (filterText && filterDate) {
-  //         if (
-  //           task.title.indexOf(filterText) !== -1 &&
-  //           (task.date === filterDate) !== -1
-  //         )
-  //           return task.title && task.date === filterDate;
-  //       } else if (filterText) {
-  //         if (task.title.indexOf(filterText) !== -1) return task.title;
-  //       } else if (filterDate) {
-  //         return task.date === filterDate;
-  //       }
-  //     });
-  //     return this.renderNews(filteredTasks);
-  //     //console.log(filteredTasks);
-  //   } else if (!filterText && !filterDate) {
-  //     return this.renderNews(task);
-  //   }
-  // };
+  filterTasks = (tasks, filterText, filterDate) => {
+    if (filterText || filterDate) {
+      const filteredTasks = tasks.filter(task => {
+        if (filterText && filterDate) {
+          return ~task.text.indexOf(filterText) && task.date === filterDate;
+        } else if (filterText) {
+          return ~task.text.indexOf(filterText);
+        } else if (filterDate) {
+          return task.date === filterDate;
+        }
+      });
+      return filteredTasks;
+    }
+    return tasks;
+  };
 
   render() {
     const { data } = this.props;

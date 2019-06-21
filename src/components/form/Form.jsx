@@ -23,6 +23,14 @@ class Form extends React.Component {
       date
     });
   };
+  filterDataSelector = e => {
+    const inputFilterData = e.target.value;
+    this.props.filterData(inputFilterData);
+  };
+  filterTextSelector = e => {
+    const inputFilterText = e.target.value;
+    this.props.filterText(inputFilterText);
+  };
   onChangeSelectorHandler = e => {
     const selectInd = e.target.options.selectedIndex;
     this.props.sortType(selectInd);
@@ -72,8 +80,14 @@ class Form extends React.Component {
             className="input-text__filter"
             id="filterText"
             placeholder="Фильтр по тексту"
+            onChange={this.filterTextSelector}
           />
-          <input type="date" className="input-date__filter" id="filterDate" />
+          <input
+            type="date"
+            onChange={this.filterDataSelector}
+            className="input-date__filter"
+            id="filterDate"
+          />
         </div>
       </div>
     );
