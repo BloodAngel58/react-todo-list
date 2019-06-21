@@ -31,10 +31,9 @@ class App extends React.Component {
   sortItem = v => {
     const collator = new Intl.Collator();
     const cloneTodoList = [...this.state.todoList];
-    console.log(cloneTodoList);
-    console.log(v);
     switch (v) {
       case 0:
+        console.log("Дороу_ 0 ");
         break;
       case 1: // сортировка по алфавиту
         cloneTodoList.sort(function(a, b) {
@@ -53,18 +52,18 @@ class App extends React.Component {
         break;
       case 3: // сортировка по дате
         cloneTodoList.sort(function(a, b) {
-          return this.dateFilter(b.date) - this.dateFilter(a.date);
+          return collator.compare(b.date, a.date);
         });
         this.setState({ todoList: cloneTodoList });
         break;
       case 4: // сортировка по дате в обратном порядке
         cloneTodoList.sort(function(a, b) {
-          return this.dateFilter(a.date) - this.dateFilter(b.date);
+          return collator.compare(a.date, b.date);
         });
         this.setState({ todoList: cloneTodoList });
         break;
       default:
-        v = 1;
+        console.log(v);
         break;
     }
   };
