@@ -6,6 +6,7 @@ class Form extends React.Component {
   state = {
     title: "",
     date: ""
+    // selectValue: ""
   };
   onChangeTextHandler = e => {
     e.preventDefault();
@@ -22,6 +23,14 @@ class Form extends React.Component {
       title,
       date
     });
+  };
+  onChangeSelectorHandler = e => {
+    const selectInd = e.target.options.selectedIndex;
+    //this.setState({ selectValue: selectInd });
+
+    //const { selectValue } = this.state;
+    this.props.sortItem({ selectInd });
+    console.log(selectInd);
   };
   render() {
     const { title, date } = this.state;
@@ -50,7 +59,11 @@ class Form extends React.Component {
           </button>
         </div>
         <div className="task-item__sort">
-          <select className="div-field selector" id="sortOptions">
+          <select
+            className="div-field selector"
+            id="sortOptions"
+            onChange={this.onChangeSelectorHandler}
+          >
             <option value="">--тип сортировки--</option>
             <option value="alphabet">по алфавиту</option>
             <option value="reverseAlpabet">против алфавита</option>

@@ -26,15 +26,56 @@ class App extends React.Component {
         nextNews.splice(index, 1);
       }
     });
-    console.log(id);
     this.setState({ todoList: nextNews });
-    console.log(nextNews);
   };
+  sortItem = v => {
+    const collator = new Intl.Collator();
+    const cloneTodoList = [...this.state.todoList];
+    console.log(cloneTodoList);
+    console.log(v);
+    switch (v) {
+      case 0:
+        break;
+      case 1: // сортировка по алфавиту
+        cloneTodoList.sort(function(a, b) {
+          console.log("Дороу");
+          return collator.compare(a.title, b.title);
+        });
+        console.log("Дороу 2 ");
+        this.setState({ todoList: cloneTodoList });
+        break;
 
+      case 2: // сортировка по алфавиту в обратном порядке
+        cloneTodoList.sort(function(a, b) {
+          return collator.compare(b.title, a.title);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+      case 3: // сортировка по дате
+        cloneTodoList.sort(function(a, b) {
+          return this.dateFilter(b.date) - this.dateFilter(a.date);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+      case 4: // сортировка по дате в обратном порядке
+        cloneTodoList.sort(function(a, b) {
+          return this.dateFilter(a.date) - this.dateFilter(b.date);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+      default:
+        v = 1;
+        break;
+    }
+  };
+  dateFilter = s => {
+    let a = s.split(/-|\//);
+    return new Date(a[0], a[1] - 1, a[2]);
+  };
   render() {
     return (
       <React.Fragment>
-        <Form onAddNews={this.handleAddNews} />
+        <Form onAddNews={this.handleAddNews} sortItem={this.sortItem} />
         <ItemsList data={this.state.todoList} deleteTasks={this.deleteTasks} />
       </React.Fragment>
     );
