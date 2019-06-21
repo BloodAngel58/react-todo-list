@@ -4,39 +4,40 @@ import { Item } from "../Item/Item.jsx";
 
 class ItemList extends React.Component {
   renderNews = data => {
+    const tasks = [...this.props.data];
     const { filterText, filterDate, selectInd } = this.props;
-    this.sortItem(selectInd);
+    this.sortItem(tasks, selectInd);
     const { deleteTasks } = this.props;
-    if (data.length) {
-      return data.map(function(item) {
-        return <Item key={item.id} data={item} deleteTasks={deleteTasks} />;
+    if (tasks.length) {
+      return tasks.map(function(item) {
+        return <Item key={item.id} tasks={item} deleteTasks={deleteTasks} />;
       });
     }
     return <p>К сожалению новостей нет</p>;
   };
-  sortItem = v => {
+  sortItem = (tasks, v) => {
     const collator = new Intl.Collator();
     switch (v) {
       case 0:
         break;
       case 1: // сортировка по алфавиту
-        this.props.data.sort(function(a, b) {
+        tasks.sort(function(a, b) {
           return collator.compare(a.title, b.title);
         });
         break;
 
       case 2: // сортировка по алфавиту в обратном порядке
-        this.props.data.sort(function(a, b) {
+        tasks.sort(function(a, b) {
           return collator.compare(b.title, a.title);
         });
         break;
       case 3: // сортировка по дате
-        this.props.data.sort(function(a, b) {
+        tasks.sort(function(a, b) {
           return dateFilter(b.date) - dateFilter(a.date);
         });
         break;
       case 4: // сортировка по дате в обратном порядке
-        this.props.data.sort(function(a, b) {
+        tasks.sort(function(a, b) {
           return dateFilter(a.date) - dateFilter(b.date);
         });
         break;

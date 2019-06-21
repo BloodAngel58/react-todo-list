@@ -12,7 +12,7 @@ class Item extends React.Component {
     this.setState({ checked: !checked });
   };
   render() {
-    const { title, date, id } = this.props.data;
+    const { title, date, id } = this.props.tasks;
     const { deleteTasks } = this.props;
     return (
       <div
