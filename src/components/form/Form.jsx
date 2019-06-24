@@ -1,99 +1,63 @@
 import React from "react";
-import "./Form.css";
-//import Task from "../task/task.jsx/index.js";
-import PropTypes from "prop-types";
+import Input from "../Input/Input";
+import ItemsList from "../ItemsList/ItemsList";
+
+const arrTask = [
+  { id: "458364627", title: "А", date: "2019-05-01" },
+  { id: "729092535", title: "Б", date: "2019-04-06" },
+  { id: "600467454", title: "В", date: "2019-01-11" },
+  { id: "496534360", title: "Г", date: "2019-08-16" },
+  { id: "104204056", title: "Д", date: "2019-11-21" }
+];
 class Form extends React.Component {
   state = {
-    title: "",
-    date: ""
+    todoList: arrTask,
+    selectInd: 1,
+    filterText: "",
+    filterDate: ""
   };
-  onChangeTextHandler = e => {
-    e.preventDefault();
-    this.setState({ title: e.target.value });
+
+  handleAddNews = data => {
+    const nextNews = [...this.state.todoList, data];
+    this.setState({ todoList: nextNews });
   };
-  onChangeDateHandler = e => {
-    this.setState({ date: e.target.value });
-  };
-  onBtnClickHandler = e => {
-    e.preventDefault();
-    const { title, date } = this.state;
-    this.props.onAddNews({
-      id: +new Date(),
-      title,
-      date
+  deleteTasks = id => {
+    const nextNews = [...this.state.todoList];
+    //nextNews.splice(nextNews.findIndex(item => item.idTask === id), 1);
+    nextNews.forEach((task, index) => {
+      if (task.id === id) {
+        nextNews.splice(index, 1);
+      }
     });
+    this.setState({ todoList: nextNews });
   };
-  filterDataSelector = e => {
-    const inputFilterData = e.target.value;
-    this.props.filterData(inputFilterData);
+  sortType = v => {
+    this.setState({ selectInd: v });
   };
-  filterTextSelector = e => {
-    const inputFilterText = e.target.value;
-    this.props.filterText(inputFilterText);
+  filterData = date => {
+    this.setState({ filterDate: date });
   };
-  onChangeSelectorHandler = e => {
-    const selectInd = e.target.options.selectedIndex;
-    this.props.sortType(selectInd);
+  filterText = text => {
+    this.setState({ filterText: text });
   };
   render() {
-    const { title, date } = this.state;
     return (
-      <div className="container">
-        <h2>Просто рабочий заголовок</h2>
-        <div className="input-task">
-          <input
-            className="data-input__text"
-            type="text"
-            placeholder="New Task"
-            onChange={this.onChangeTextHandler}
-            value={title}
-          />
-          <input
-            className="data-input__date"
-            type="date"
-            onChange={this.onChangeDateHandler}
-            value={date}
-          />
-          <button
-            className="data-input__button"
-            onClick={this.onBtnClickHandler}
-          >
-            Жмякни
-          </button>
-        </div>
-        <div className="task-item__sort">
-          <select
-            className="div-field selector"
-            id="sortOptions"
-            onChange={this.onChangeSelectorHandler}
-          >
-            <option value="">--тип сортировки--</option>
-            <option value="alphabet">по алфавиту</option>
-            <option value="reverseAlpabet">против алфавита</option>
-            <option value="date">недавно добавленные</option>
-            <option value="reverseDate">старые</option>
-          </select>
-        </div>
-        <div className="task-item__filter">
-          <input
-            type="text"
-            className="input-text__filter"
-            id="filterText"
-            placeholder="Фильтр по тексту"
-            onChange={this.filterTextSelector}
-          />
-          <input
-            type="date"
-            onChange={this.filterDataSelector}
-            className="input-date__filter"
-            id="filterDate"
-          />
-        </div>
-      </div>
+      <React.Fragment>
+        <Input
+          onAddNews={this.handleAddNews}
+          filterData={this.filterData}
+          filterText={this.filterText}
+          sortType={this.sortType}
+        />
+        <ItemsList
+          data={this.state.todoList}
+          deleteTasks={this.deleteTasks}
+          selectInd={this.state.selectInd}
+          filterText={this.state.filterText}
+          filterDate={this.state.filterDate}
+        />
+      </React.Fragment>
     );
   }
 }
-Form.propTypes = {
-  onAddNews: PropTypes.func.isRequired
-};
 export default Form;

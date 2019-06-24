@@ -6,8 +6,8 @@ class ItemList extends React.Component {
   renderNews = data => {
     const tasks = [...data];
     const { filterText, filterDate, selectInd } = this.props;
-    // const { selectInd } = this.props;
     this.sortItem(tasks, selectInd);
+
     this.filterTasks = (tasks, filterText, filterDate);
     //this.sortItem(tasks, selectInd);
     const { deleteTasks } = this.props;
@@ -34,22 +34,21 @@ class ItemList extends React.Component {
           return collator.compare(b.title, a.title);
         });
         break;
+
       case 3: // сортировка по дате
         tasks.sort(function(a, b) {
-          return dateFilter(b.date) - dateFilter(a.date);
+          return collator.compare(b.date - a.date);
         });
         break;
+
       case 4: // сортировка по дате в обратном порядке
         tasks.sort(function(a, b) {
-          return dateFilter(a.date) - dateFilter(b.date);
+          return collator.compare(a.date - b.date);
         });
         break;
+
       default:
         break;
-    }
-    function dateFilter(s) {
-      let a = s.split(/-|\//);
-      return new Date(a[0], a[1] - 1, a[2]);
     }
   };
 
@@ -57,16 +56,21 @@ class ItemList extends React.Component {
     if (filterText || filterDate) {
       const filteredTasks = tasks.filter(task => {
         if (filterText && filterDate) {
-          return ~task.text.indexOf(filterText) && task.date === filterDate;
+          if (
+            task.title.indexOf(filterText) !== -1 &&
+            (task.date === filterDate) !== -1
+          )
+            return task.title && task.date === filterDate;
         } else if (filterText) {
-          return ~task.text.indexOf(filterText);
+          if (task.title.indexOf(filterText) !== -1) return task.title;
         } else if (filterDate) {
           return task.date === filterDate;
         }
       });
       return filteredTasks;
+    } else if (!filterText && !filterDate) {
+      return tasks;
     }
-    return tasks;
   };
 
   render() {
