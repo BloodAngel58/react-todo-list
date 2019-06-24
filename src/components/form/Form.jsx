@@ -12,9 +12,9 @@ const arrTask = [
 class Form extends React.Component {
   state = {
     todoList: arrTask,
-    selectInd: 1,
+    filterDate: "",
     filterText: "",
-    filterDate: ""
+    sortTypeI: 1
   };
 
   handleAddNews = data => {
@@ -23,16 +23,51 @@ class Form extends React.Component {
   };
   deleteTasks = id => {
     const nextNews = [...this.state.todoList];
-    //nextNews.splice(nextNews.findIndex(item => item.idTask === id), 1);
     nextNews.forEach((task, index) => {
       if (task.id === id) {
         nextNews.splice(index, 1);
       }
     });
-    this.setState({ todoList: nextNews });
   };
   sortType = v => {
-    this.setState({ selectInd: v });
+    const dateFilter = require("moment");
+    dateFilter().format("L");
+    const collator = new Intl.Collator();
+    const cloneTodoList = [...this.state.todoList];
+    switch (v) {
+      case 0:
+        break;
+      case 1: // сортировка по алфавиту
+        cloneTodoList.sort(function(a, b) {
+          return collator.compare(a.title, b.title);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+
+      case 2: // сортировка по алфавиту в обратном порядке
+        cloneTodoList.sort(function(a, b) {
+          return collator.compare(b.title, a.title);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+
+      case 3: // сортировка по дате
+        cloneTodoList.sort(function(a, b) {
+          return dateFilter(b.date) - dateFilter(a.date);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+
+      case 4: // сортировка по дате в обратном порядке
+        cloneTodoList.sort(function(a, b) {
+          return dateFilter(a.date) - dateFilter(b.date);
+        });
+        this.setState({ todoList: cloneTodoList });
+        break;
+
+      default:
+        break;
+    }
   };
   filterData = date => {
     this.setState({ filterDate: date });
@@ -40,7 +75,38 @@ class Form extends React.Component {
   filterText = text => {
     this.setState({ filterText: text });
   };
+
+  filterTasks = (task, filterText, filterDate) => {
+    const cloneTodoList = [...task];
+    if (filterText || filterDate) {
+      const filteredTasks = cloneTodoList.filter(task => {
+        if (filterText && filterDate) {
+          if (
+            task.title.indexOf(filterText) !== -1 &&
+            (task.date === filterDate) !== -1
+          ) {
+            return task.title && task.date === filterDate;
+          }
+        } else if (filterText) {
+          if (task.title.indexOf(filterText) !== -1) return task.title;
+        } else if (filterDate) {
+          return task.date === filterDate;
+        }
+      });
+      return filteredTasks;
+    } else if (!filterText && !filterDate) {
+      return task;
+    }
+  };
+
   render() {
+    const filterDate = this.state.filterDate;
+    const filterText = this.state.filterText;
+    const arrFilter = this.filterTasks(
+      this.state.todoList,
+      filterText,
+      filterDate
+    );
     return (
       <React.Fragment>
         <Input
@@ -49,13 +115,7 @@ class Form extends React.Component {
           filterText={this.filterText}
           sortType={this.sortType}
         />
-        <ItemsList
-          data={this.state.todoList}
-          deleteTasks={this.deleteTasks}
-          selectInd={this.state.selectInd}
-          filterText={this.state.filterText}
-          filterDate={this.state.filterDate}
-        />
+        <ItemsList data={arrFilter} deleteTasks={this.deleteTasks} />
       </React.Fragment>
     );
   }

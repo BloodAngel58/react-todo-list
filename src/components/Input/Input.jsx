@@ -33,6 +33,7 @@ class Input extends React.Component {
   };
   onChangeSelectorHandler = e => {
     const selectInd = e.target.options.selectedIndex;
+    console.log(selectInd);
     this.props.sortType(selectInd);
   };
   render() {
