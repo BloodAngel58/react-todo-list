@@ -1,34 +1,28 @@
 import React from "react";
 import "./Input.css";
-//import Task from "../task/task.jsx/index.js";
 import PropTypes from "prop-types";
+
 class Input extends React.Component {
   state = {
     title: "",
     date: ""
   };
-  // onChangeTextHandler = e => {
-  //   e.preventDefault();
-  //   this.setState({ title: e.target.value });
-  //   console.log(e.target.id);
-  // };
-  // onChangeDateHandler = e => {
-  //   this.setState({ date: e.target.value });
-  //   console.log(e.target.id);
-  // };
 
   onBtnClickHandler = e => {
     e.preventDefault();
     const { title, date } = this.state;
-    this.props.onAddNews({
-      id: +new Date(),
-      title,
-      date
-    });
-    this.setState({
-      title: "",
-      date: ""
-    });
+    if (title && date) {
+      this.props.onAddNews({
+        id: +new Date(),
+        title,
+        date
+      });
+
+      this.setState({
+        title: "",
+        date: ""
+      });
+    } else alert("Все поля должны быть заполнены");
   };
   receiveData = e => {
     switch (e.target.id) {
@@ -45,35 +39,18 @@ class Input extends React.Component {
       case "input-text__filter":
         const inputFilterText = e.target.value;
         this.props.filterText(inputFilterText);
-        console.log(e.target.id);
         break;
       case "input-date__filter":
         const inputFilterData = e.target.value;
         this.props.filterData(inputFilterData);
-        console.log(e.target.id);
         break;
       default:
         break;
     }
   };
-  // filterDataSelector = e => {
-  //   const inputFilterData = e.target.value;
-  //   this.props.filterData(inputFilterData);
-  //   console.log(e.target.id);
-  // };
-  // filterTextSelector = e => {
-  //   const inputFilterText = e.target.value;
-  //   this.props.filterText(inputFilterText);
-  //   console.log(e.target.id);
-  // };
-  // onChangeSelectorHandler = e => {
-  //   const selectInd = e.target.options.selectedIndex;
-  //   this.props.sortType(selectInd);
-  //   console.log(e.target.id);
-  // };
+
   render() {
     const { title, date } = this.state;
-    //const { receiveData } = this.props;
     return (
       <div className="container">
         <h2>Просто рабочий заголовок</h2>
@@ -132,6 +109,7 @@ class Input extends React.Component {
     );
   }
 }
+
 Input.propTypes = {
   onAddNews: PropTypes.func.isRequired
 };
