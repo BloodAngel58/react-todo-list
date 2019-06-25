@@ -7,13 +7,16 @@ class Input extends React.Component {
     title: "",
     date: ""
   };
-  onChangeTextHandler = e => {
-    e.preventDefault();
-    this.setState({ title: e.target.value });
-  };
-  onChangeDateHandler = e => {
-    this.setState({ date: e.target.value });
-  };
+  // onChangeTextHandler = e => {
+  //   e.preventDefault();
+  //   this.setState({ title: e.target.value });
+  //   console.log(e.target.id);
+  // };
+  // onChangeDateHandler = e => {
+  //   this.setState({ date: e.target.value });
+  //   console.log(e.target.id);
+  // };
+
   onBtnClickHandler = e => {
     e.preventDefault();
     const { title, date } = this.state;
@@ -22,37 +25,72 @@ class Input extends React.Component {
       title,
       date
     });
+    this.setState({
+      title: "",
+      date: ""
+    });
   };
-  filterDataSelector = e => {
-    const inputFilterData = e.target.value;
-    this.props.filterData(inputFilterData);
+  receiveData = e => {
+    switch (e.target.id) {
+      case "data-input__text":
+        this.setState({ title: e.target.value });
+        break;
+      case "data-input__date":
+        this.setState({ date: e.target.value });
+        break;
+      case "sortOptions":
+        const selectInd = e.target.options.selectedIndex;
+        this.props.sortType(selectInd);
+        break;
+      case "input-text__filter":
+        const inputFilterText = e.target.value;
+        this.props.filterText(inputFilterText);
+        console.log(e.target.id);
+        break;
+      case "input-date__filter":
+        const inputFilterData = e.target.value;
+        this.props.filterData(inputFilterData);
+        console.log(e.target.id);
+        break;
+      default:
+        break;
+    }
   };
-  filterTextSelector = e => {
-    const inputFilterText = e.target.value;
-    this.props.filterText(inputFilterText);
-  };
-  onChangeSelectorHandler = e => {
-    const selectInd = e.target.options.selectedIndex;
-    console.log(selectInd);
-    this.props.sortType(selectInd);
-  };
+  // filterDataSelector = e => {
+  //   const inputFilterData = e.target.value;
+  //   this.props.filterData(inputFilterData);
+  //   console.log(e.target.id);
+  // };
+  // filterTextSelector = e => {
+  //   const inputFilterText = e.target.value;
+  //   this.props.filterText(inputFilterText);
+  //   console.log(e.target.id);
+  // };
+  // onChangeSelectorHandler = e => {
+  //   const selectInd = e.target.options.selectedIndex;
+  //   this.props.sortType(selectInd);
+  //   console.log(e.target.id);
+  // };
   render() {
     const { title, date } = this.state;
+    //const { receiveData } = this.props;
     return (
       <div className="container">
         <h2>Просто рабочий заголовок</h2>
         <div className="input-task">
           <input
+            id="data-input__text"
             className="data-input__text"
             type="text"
             placeholder="New Task"
-            onChange={this.onChangeTextHandler}
+            onChange={this.receiveData}
             value={title}
           />
           <input
+            id="data-input__date"
             className="data-input__date"
             type="date"
-            onChange={this.onChangeDateHandler}
+            onChange={this.receiveData}
             value={date}
           />
           <button
@@ -66,7 +104,7 @@ class Input extends React.Component {
           <select
             className="div-field selector"
             id="sortOptions"
-            onChange={this.onChangeSelectorHandler}
+            onChange={this.receiveData}
           >
             <option value="">--тип сортировки--</option>
             <option value="alphabet">по алфавиту</option>
@@ -79,15 +117,15 @@ class Input extends React.Component {
           <input
             type="text"
             className="input-text__filter"
-            id="filterText"
+            id="input-text__filter"
             placeholder="Фильтр по тексту"
-            onChange={this.filterTextSelector}
+            onChange={this.receiveData}
           />
           <input
             type="date"
-            onChange={this.filterDataSelector}
+            onChange={this.receiveData}
             className="input-date__filter"
-            id="filterDate"
+            id="input-date__filter"
           />
         </div>
       </div>

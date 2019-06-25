@@ -21,13 +21,46 @@ class Form extends React.Component {
     const nextNews = [...this.state.todoList, data];
     this.setState({ todoList: nextNews });
   };
+
+  // receiveData = e => {
+  //   switch (e.target.id) {
+  //     case "data-input__text":
+  //       //this.setState({ title: e.target.value });
+  //       console.log(e.target.id);
+  //       break;
+  //     case "data-input__date":
+  //       //this.setState({ date: e.target.value });
+  //       console.log(e.target.id);
+  //       break;
+  //     case "sortOptions":
+  //       const selectInd = e.target.options.selectedIndex;
+  //       this.sortType(selectInd);
+  //       console.log(e.target.id);
+  //       break;
+  //     case "input-text__filter":
+  //       const inputFilterText = e.target.value;
+  //       this.props.filterText(inputFilterText);
+  //       console.log(e.target.id);
+  //       break;
+  //     case "input-date__filter":
+  //       const inputFilterData = e.target.value;
+  //       this.props.filterData(inputFilterData);
+  //       console.log(e.target.id);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
+
   deleteTasks = id => {
+    console.log(id);
     const nextNews = [...this.state.todoList];
     nextNews.forEach((task, index) => {
       if (task.id === id) {
         nextNews.splice(index, 1);
       }
     });
+    return this.setState({ todoList: nextNews });
   };
   sortType = v => {
     const dateFilter = require("moment");
@@ -114,6 +147,7 @@ class Form extends React.Component {
           filterData={this.filterData}
           filterText={this.filterText}
           sortType={this.sortType}
+          receiveData={this.receiveData}
         />
         <ItemsList data={arrFilter} deleteTasks={this.deleteTasks} />
       </React.Fragment>
