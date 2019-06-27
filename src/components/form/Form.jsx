@@ -16,6 +16,7 @@ class Form extends React.Component {
   handleAddNews = data => {
     // const nextNews = [...this.state.todoList, data];
     // this.setState({ todoList: nextNews });
+    actions.setTasks(data);
     console.log(data);
   };
 
@@ -99,10 +100,17 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  setYearAction: task => dispatch(actions.setTasks(task))
-});
-
+const mapDispatchToProps = dispatch => {
+  return {
+    setText: text => dispatch(actions.setText(text)),
+    setDate: date => dispatch(actions.setDate(date)),
+    setFilterText: filterText => dispatch(actions.setFilterText(filterText)),
+    setFilterDate: filterDate => dispatch(actions.setFilterDate(filterDate)),
+    setSelectValue: selectValue =>
+      dispatch(actions.setSelectValue(selectValue)),
+    setTasks: tasks => dispatch(actions.setTasks(tasks))
+  };
+};
 export default connect(
   mapStateToProps,
   mapDispatchToProps
