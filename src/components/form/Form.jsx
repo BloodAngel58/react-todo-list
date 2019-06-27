@@ -2,15 +2,8 @@ import React from "react";
 import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
 import { connect } from "react-redux";
-import {
-  setText,
-  setDate,
-  setFilterText,
-  setFilterDate,
-  setSelectValue,
-  setTasks
-} from "../actions/TaskActions";
-
+import * as actions from "../../actions/TaskActions";
+import { store } from "../../store/configureStore";
 const arrTask = [
   { id: "458364627", title: "Д", date: "2019-05-01" },
   { id: "729092535", title: "Г", date: "2019-04-06" },
@@ -23,6 +16,7 @@ class Form extends React.Component {
   handleAddNews = data => {
     // const nextNews = [...this.state.todoList, data];
     // this.setState({ todoList: nextNews });
+    console.log(data);
   };
 
   deleteTasks = id => {
@@ -39,11 +33,15 @@ class Form extends React.Component {
   };
 
   filterData = date => {
-    this.setState({ filterDate: date });
+    // this.setState({ filterDate: date });
+    this.props.setDate(date);
+    console.log(date);
   };
 
   filterText = text => {
-    this.setState({ filterText: text });
+    // this.setState({ filterText: text });
+    this.props.setText(text);
+    console.log(text);
   };
 
   filterTasks = (task, filterText, filterDate) => {
@@ -63,18 +61,19 @@ class Form extends React.Component {
           return task.date === filterDate;
         }
       });
-      return this.sortType.apply(filteredTasks);
+      return filteredTasks;
     } else if (!filterText && !filterDate) {
       return task;
     }
   };
 
   render() {
-    const filterDate = this.state.filterDate;
-    const filterText = this.state.filterText;
+    // const filterDate = this.state.filterDate;
+    // const filterText = this.state.filterText;
 
-    let arrFilter = this.filterTasks(this.props.posts, filterText, filterDate);
-
+    const arr = this.props.posts.itemsList;
+    let arrFilter = this.filterTasks(arr, "", "");
+    console.log(this.props.posts.itemsList);
     return (
       <React.Fragment>
         <Input
@@ -85,7 +84,7 @@ class Form extends React.Component {
           receiveData={this.receiveData}
         />
         <ItemsList
-          sortTypeI={this.state.sortTypeI}
+          // sortTypeI={this.state.sortTypeI}
           data={arrFilter}
           deleteTasks={this.deleteTasks}
         />
@@ -96,12 +95,12 @@ class Form extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    posts: state
+    posts: state.task
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  setYearAction: task => dispatch(setTask(task))
+  setYearAction: task => dispatch(actions.setTasks(task))
 });
 
 export default connect(

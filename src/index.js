@@ -7,12 +7,8 @@ import {
   Provider
 } from 'react-redux';
 import {
-  createStore
-} from 'redux';
-
-import postReducer from '../src/reducers/postReducer';
-
-const store = createStore(postReducer);
+  store
+} from './store/configureStore'
 ReactDOM.render( < Provider store = {
     store
   } >

@@ -1,5 +1,5 @@
 export const initialState = {
-    task: [{
+    itemsList: [{
             id: "458364627",
             title: "Д",
             date: "2019-05-01"
@@ -58,7 +58,7 @@ export const formReducer = (state = initialState, action) => {
         case 'SET_TASKS': {
             return {
                 ...state,
-                tasks: action.payload
+                itemsList: action.payload
             };
         }
         default:

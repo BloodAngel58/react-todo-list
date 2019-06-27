@@ -46,8 +46,10 @@ class ItemList extends Component {
   renderNews = tasks => {
     const sortTypeI = this.props.sortTypeI;
     const { deleteTasks } = this.props;
-    this.sortData(tasks, sortTypeI);
-    if (tasks.length > 0) {
+    this.sortData(tasks, 1);
+    console.log(tasks);
+    console.log(tasks.length);
+    if (tasks.length !== 0) {
       return tasks.map(function(item) {
         return <Item key={item.id} tasks={item} deleteTasks={deleteTasks} />;
       });
