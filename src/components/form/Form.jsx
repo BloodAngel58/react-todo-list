@@ -2,7 +2,14 @@ import React from "react";
 import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
 import { connect } from "react-redux";
-import { setTask } from "../../actions/TaskActions";
+import {
+  setText,
+  setDate,
+  setFilterText,
+  setFilterDate,
+  setSelectValue,
+  setTasks
+} from "../actions/TaskActions";
 
 const arrTask = [
   { id: "458364627", title: "Д", date: "2019-05-01" },
@@ -13,17 +20,9 @@ const arrTask = [
 ];
 
 class Form extends React.Component {
-  state = {
-    //todoList: arrTask,
-    filterDate: "",
-    filterText: "",
-    sortTypeI: 1
-  };
-
   handleAddNews = data => {
     // const nextNews = [...this.state.todoList, data];
     // this.setState({ todoList: nextNews });
-    mapDispatchToProps(data);
   };
 
   deleteTasks = id => {

@@ -1,41 +1,50 @@
+import {
+    SET_TEXT,
+    SET_DATE,
+    SET_TASKS,
+    SET_FILTER_TEXT,
+    SET_FILTER_DATE,
+    SET_SELECT_VALUE
+} from "../constants"
+
 export const setText = textInput => {
     return {
-        type: 'SET_TEXT',
+        type: SET_TEXT,
         payload: textInput,
     }
 }
 
 export const setDate = dateInput => {
     return {
-        type: 'SET_DATE',
+        type: SET_DATE,
         payload: dateInput,
     }
 }
 
 export const setFilterText = filterText => {
     return {
-        type: 'SET_FILTER_TEXT',
+        type: SET_FILTER_TEXT,
         payload: filterText,
     }
 }
 
 export const setFilterDate = filterDate => {
     return {
-        type: 'SET_FILTER_DATE',
+        type: SET_FILTER_DATE,
         payload: filterDate,
     }
 }
 
 export const setSelectValue = selectValue => {
     return {
-        type: 'SET_SELECT_VALUE',
+        type: SET_SELECT_VALUE,
         payload: selectValue,
     }
 }
 
 export const setTasks = tasks => {
     return {
-        type: 'SET_TASKS',
+        type: SET_TASKS,
         payload: tasks,
     }
 }
