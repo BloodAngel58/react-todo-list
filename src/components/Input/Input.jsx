@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Input.css";
 import PropTypes from "prop-types";
 
-class Input extends React.Component {
+class Input extends Component {
   state = {
     title: "",
     date: ""
@@ -24,6 +24,7 @@ class Input extends React.Component {
       });
     } else alert("Все поля должны быть заполнены");
   };
+
   receiveData = e => {
     switch (e.target.id) {
       case "data-input__text":

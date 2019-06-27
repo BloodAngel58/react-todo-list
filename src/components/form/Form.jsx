@@ -1,6 +1,8 @@
 import React from "react";
 import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
+import { connect } from "react-redux";
+import { setTask } from "../../actions/TaskActions";
 
 const arrTask = [
   { id: "458364627", title: "Д", date: "2019-05-01" },
@@ -12,15 +14,16 @@ const arrTask = [
 
 class Form extends React.Component {
   state = {
-    todoList: arrTask,
+    //todoList: arrTask,
     filterDate: "",
     filterText: "",
     sortTypeI: 1
   };
 
   handleAddNews = data => {
-    const nextNews = [...this.state.todoList, data];
-    this.setState({ todoList: nextNews });
+    // const nextNews = [...this.state.todoList, data];
+    // this.setState({ todoList: nextNews });
+    mapDispatchToProps(data);
   };
 
   deleteTasks = id => {
@@ -71,11 +74,7 @@ class Form extends React.Component {
     const filterDate = this.state.filterDate;
     const filterText = this.state.filterText;
 
-    let arrFilter = this.filterTasks(
-      this.state.todoList,
-      filterText,
-      filterDate
-    );
+    let arrFilter = this.filterTasks(this.props.posts, filterText, filterDate);
 
     return (
       <React.Fragment>
@@ -95,4 +94,18 @@ class Form extends React.Component {
     );
   }
 }
-export default Form;
+
+const mapStateToProps = state => {
+  return {
+    posts: state
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  setYearAction: task => dispatch(setTask(task))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Form);

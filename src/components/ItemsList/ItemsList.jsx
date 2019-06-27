@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import "../ItemsList/ItemsList.css";
 import { Item } from "../Item/Item.jsx";
+import { connect } from "react-redux";
 
-class ItemList extends React.Component {
+class ItemList extends Component {
   sortData = (task, v) => {
     const dateFilter = require("moment");
     dateFilter().format("L");
@@ -56,7 +57,13 @@ class ItemList extends React.Component {
 
   render() {
     const { data } = this.props;
+    console.log(this.props.posts);
     return <div className="single-todo__item">{this.renderNews(data)}</div>;
   }
 }
-export default ItemList;
+const mapStateToProps = state => {
+  return {
+    posts: state
+  };
+};
+export default connect(mapStateToProps)(ItemList);
