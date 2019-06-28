@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import "../ItemsList/ItemsList.css";
 import { Item } from "../Item/Item.jsx";
 import { connect } from "react-redux";
+const dateFilter = require("moment");
 
 class ItemList extends Component {
   sortData = (task, v) => {
-    const dateFilter = require("moment");
     dateFilter().format("L");
     const collator = new Intl.Collator();
 

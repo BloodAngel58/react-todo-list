@@ -41,3 +41,9 @@ export const setTasks = tasks => {
         payload: tasks
     };
 };
+export const delTasks = tasks => {
+    return {
+        type: _str.DELL_TASKS,
+        payload: tasks
+    };
+};

@@ -2,21 +2,15 @@ import React from "react";
 import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
 import { connect } from "react-redux";
-import * as actions from "../../actions/TaskActions";
+import * as actions from "../../redux/actions/TaskActions";
+
 class Form extends React.Component {
   handleAddNews = data => {
-    const nextNews = [...this.props.posts.itemsList, data];
-    this.props.setTasks(nextNews);
+    this.props.setTasks(data);
   };
 
   deleteTasks = id => {
-    const nextNews = [...this.props.posts.itemsList];
-    nextNews.forEach((task, index) => {
-      if (task.id === id) {
-        nextNews.splice(index, 1);
-      }
-    });
-    return this.props.setTasks(nextNews);
+    this.props.delTasks(id);
   };
   sortType = v => {
     this.props.setSelectValue(v);
@@ -94,7 +88,8 @@ const mapDispatchToProps = dispatch => {
     setFilterDate: filterDate => dispatch(actions.setFilterDate(filterDate)),
     setSelectValue: selectValue =>
       dispatch(actions.setSelectValue(selectValue)),
-    setTasks: tasks => dispatch(actions.setTasks(tasks))
+    setTasks: tasks => dispatch(actions.setTasks(tasks)),
+    delTasks: tasks => dispatch(actions.delTasks(tasks))
   };
 };
 export default connect(

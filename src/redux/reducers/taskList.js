@@ -57,9 +57,23 @@ export const formReducer = (state = initialState, action) => {
             };
         case 'SET_TASKS': {
             return {
-                ...state,
-                itemsList: action.payload
+                itemsList: [...state.itemsList, action.payload]
             };
+        }
+        case 'DELL_TASKS': {
+            const id = action.payload;
+            const arr = [...state.itemsList];
+
+            arr.forEach((task, index) => {
+                if (task.id === id) {
+                    arr.splice(index, 1);
+                }
+            });
+            return {
+                ...state,
+                itemsList: arr
+            }
+
         }
         default:
             return state;
