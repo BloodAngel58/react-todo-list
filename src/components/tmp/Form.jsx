@@ -3,46 +3,32 @@ import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
 import { connect } from "react-redux";
 import * as actions from "../../actions/TaskActions";
-import { store } from "../../store/configureStore";
-const arrTask = [
-  { id: "458364627", title: "Д", date: "2019-05-01" },
-  { id: "729092535", title: "Г", date: "2019-04-06" },
-  { id: "600467454", title: "В", date: "2019-01-11" },
-  { id: "496534360", title: "Б", date: "2019-08-16" },
-  { id: "104204056", title: "А", date: "2019-11-21" }
-];
-
 class Form extends React.Component {
   handleAddNews = data => {
-    // const nextNews = [...this.state.todoList, data];
-    // this.setState({ todoList: nextNews });
-    actions.setTasks(data);
+    const nextNews = [...this.props.posts.itemsList, data];
+    this.props.setTasks(nextNews);
     console.log(data);
   };
 
   deleteTasks = id => {
-    const nextNews = [...this.state.todoList];
+    const nextNews = [...this.props.posts.itemsList];
     nextNews.forEach((task, index) => {
       if (task.id === id) {
         nextNews.splice(index, 1);
       }
     });
-    return this.setState({ todoList: nextNews });
+    return this.props.setTasks(nextNews);
   };
   sortType = v => {
-    this.setState({ sortTypeI: v });
+    this.props.setSelectValue(v);
   };
 
   filterData = date => {
-    // this.setState({ filterDate: date });
-    this.props.setDate(date);
-    console.log(date);
+    this.props.setFilterDate(date);
   };
 
   filterText = text => {
-    // this.setState({ filterText: text });
-    this.props.setText(text);
-    console.log(text);
+    this.props.setFilterText(text);
   };
 
   filterTasks = (task, filterText, filterDate) => {
@@ -69,11 +55,12 @@ class Form extends React.Component {
   };
 
   render() {
-    // const filterDate = this.state.filterDate;
-    // const filterText = this.state.filterText;
-
     const arr = this.props.posts.itemsList;
-    let arrFilter = this.filterTasks(arr, "", "");
+    let arrFilter = this.filterTasks(
+      arr,
+      this.props.posts.filterText,
+      this.props.posts.filterDate
+    );
     console.log(this.props.posts.itemsList);
     return (
       <React.Fragment>
@@ -85,7 +72,7 @@ class Form extends React.Component {
           receiveData={this.receiveData}
         />
         <ItemsList
-          // sortTypeI={this.state.sortTypeI}
+          sortTypeI={this.props.posts.selectValue}
           data={arrFilter}
           deleteTasks={this.deleteTasks}
         />

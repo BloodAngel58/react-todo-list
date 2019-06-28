@@ -9,6 +9,7 @@ import {
 import {
   store
 } from './store/configureStore'
+
 ReactDOM.render( < Provider store = {
     store
   } >
