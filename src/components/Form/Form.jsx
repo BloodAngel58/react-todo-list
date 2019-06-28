@@ -7,7 +7,6 @@ class Form extends React.Component {
   handleAddNews = data => {
     const nextNews = [...this.props.posts.itemsList, data];
     this.props.setTasks(nextNews);
-    console.log(data);
   };
 
   deleteTasks = id => {
@@ -61,7 +60,7 @@ class Form extends React.Component {
       this.props.posts.filterText,
       this.props.posts.filterDate
     );
-    console.log(this.props.posts.itemsList);
+
     return (
       <React.Fragment>
         <Input
