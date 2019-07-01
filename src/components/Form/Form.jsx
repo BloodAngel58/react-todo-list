@@ -86,13 +86,9 @@ const mapDispatchToProps = dispatch => {
     setDate: date => dispatch(actions.setDate(date)),
     setFilterText: filterText => dispatch(actions.setFilterText(filterText)),
     setFilterDate: filterDate => dispatch(actions.setFilterDate(filterDate)),
-    setSelectValue: selectValue =>
-      dispatch(actions.setSelectValue(selectValue)),
+    setSelectValue: selectValue => dispatch(actions.setSelectValue(selectValue)),
     setTasks: tasks => dispatch(actions.setTasks(tasks)),
     delTasks: tasks => dispatch(actions.delTasks(tasks))
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

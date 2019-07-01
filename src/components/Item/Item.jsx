@@ -1,8 +1,6 @@
 import React from "react";
 import "../Item/Item.css";
 
-//import PropTypes from "prop-types";
-
 class Item extends React.Component {
   state = {
     checked: false

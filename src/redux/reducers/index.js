@@ -1,10 +1,4 @@
-import {
-    combineReducers
-} from 'redux'
-import {
-    formReducer
-} from './taskList'
+import { combineReducers } from 'redux'
+import { formReducer } from './taskList'
 
-export const rootReducer = combineReducers({
-    task: formReducer,
-})
+export const rootReducer = combineReducers({ task: formReducer, })

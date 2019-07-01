@@ -1,35 +1,35 @@
 export const initialState = {
     itemsList: [{
-            id: "458364627",
-            title: "Д",
-            date: "2019-05-01"
-        },
-        {
-            id: "729092535",
-            title: "Г",
-            date: "2019-04-06"
-        },
-        {
-            id: "600467454",
-            title: "В",
-            date: "2019-01-11"
-        },
-        {
-            id: "496534360",
-            title: "Б",
-            date: "2019-08-16"
-        },
-        {
-            id: "104204056",
-            title: "А",
-            date: "2019-11-21"
-        }
+        id: "458364627",
+        title: "Д",
+        date: "2019-05-01"
+    },
+    {
+        id: "729092535",
+        title: "Г",
+        date: "2019-04-06"
+    },
+    {
+        id: "600467454",
+        title: "В",
+        date: "2019-01-11"
+    },
+    {
+        id: "496534360",
+        title: "Б",
+        date: "2019-08-16"
+    },
+    {
+        id: "104204056",
+        title: "А",
+        date: "2019-11-21"
+    }
     ],
-    textInput: '',
-    dateInput: '',
-    filterText: '',
-    filterDate: '',
-    selectValue: '',
+    textInput: null,
+    dateInput: null,
+    filterText: null,
+    filterDate: null,
+    selectValue: null,
 
 }
 
@@ -61,17 +61,8 @@ export const formReducer = (state = initialState, action) => {
             };
         }
         case 'DELL_TASKS': {
-            const id = action.payload;
-            const arr = [...state.itemsList];
-
-            arr.forEach((task, index) => {
-                if (task.id === id) {
-                    arr.splice(index, 1);
-                }
-            });
             return {
-                ...state,
-                itemsList: arr
+                itemsList: state.itemsList.filter(item => item.id !== action.payload)
             }
 
         }
