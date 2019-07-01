@@ -3,6 +3,7 @@ import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/TaskActions";
+const { setText, setDate, setFilterText, setFilterDate, setSelectValue, setTasks, delTasks } = actions;
 
 class Form extends React.Component {
   handleAddNews = data => {
@@ -82,13 +83,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setText: text => dispatch(actions.setText(text)),
-    setDate: date => dispatch(actions.setDate(date)),
-    setFilterText: filterText => dispatch(actions.setFilterText(filterText)),
-    setFilterDate: filterDate => dispatch(actions.setFilterDate(filterDate)),
-    setSelectValue: selectValue => dispatch(actions.setSelectValue(selectValue)),
-    setTasks: tasks => dispatch(actions.setTasks(tasks)),
-    delTasks: tasks => dispatch(actions.delTasks(tasks))
+    setText: text => dispatch(setText(text)),
+    setDate: date => dispatch(setDate(date)),
+    setFilterText: filterText => dispatch(setFilterText(filterText)),
+    setFilterDate: filterDate => dispatch(setFilterDate(filterDate)),
+    setSelectValue: selectValue => dispatch(setSelectValue(selectValue)),
+    setTasks: tasks => dispatch(setTasks(tasks)),
+    delTasks: tasks => dispatch(delTasks(tasks))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
