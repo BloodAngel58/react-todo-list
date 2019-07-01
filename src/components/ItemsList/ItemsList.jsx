@@ -1,41 +1,38 @@
-import React from "react";
+import React, { Component } from "react";
 import "../ItemsList/ItemsList.css";
 import { Item } from "../Item/Item.jsx";
+const dateFilter = require("moment");
 
-class ItemList extends React.Component {
+class ItemList extends Component {
+
   sortData = (task, v) => {
-    const dateFilter = require("moment");
     dateFilter().format("L");
     const collator = new Intl.Collator();
     switch (v) {
       case 0:
         break;
       case 1: // сортировка по алфавиту
-        task.sort(function(a, b) {
+        task.sort(function (a, b) {
           return collator.compare(a.title, b.title);
         });
-        //this.setState({ todoList: cloneTodoList });
         break;
 
       case 2: // сортировка по алфавиту в обратном порядке
-        task.sort(function(a, b) {
+        task.sort(function (a, b) {
           return collator.compare(b.title, a.title);
         });
-        //this.setState({ todoList: cloneTodoList });
         break;
 
       case 3: // сортировка по дате
-        task.sort(function(a, b) {
+        task.sort(function (a, b) {
           return dateFilter(b.date) - dateFilter(a.date);
         });
-        // this.setState({ todoList: cloneTodoList });
         break;
 
       case 4: // сортировка по дате в обратном порядке
-        task.sort(function(a, b) {
+        task.sort(function (a, b) {
           return dateFilter(a.date) - dateFilter(b.date);
         });
-        //  this.setState({ todoList: cloneTodoList });
         break;
 
       default:
@@ -46,8 +43,9 @@ class ItemList extends React.Component {
     const sortTypeI = this.props.sortTypeI;
     const { deleteTasks } = this.props;
     this.sortData(tasks, sortTypeI);
-    if (tasks.length > 0) {
-      return tasks.map(function(item) {
+    if (tasks.length !== 0) {
+
+      return tasks.map(function (item) {
         return <Item key={item.id} tasks={item} deleteTasks={deleteTasks} />;
       });
     }
