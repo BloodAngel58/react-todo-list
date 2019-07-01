@@ -1,0 +1,9 @@
+.single-todo__item {
+    background-color: cadetblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 9px;
+    padding: 15px;
+
+}
