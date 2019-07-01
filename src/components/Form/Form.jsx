@@ -2,8 +2,15 @@ import React from "react";
 import Input from "../Input/Input";
 import ItemsList from "../ItemsList/ItemsList";
 import { connect } from "react-redux";
-import * as actions from "../../redux/actions/TaskActions";
-const { setText, setDate, setFilterText, setFilterDate, setSelectValue, setTasks, delTasks } = actions;
+import {
+  setText,
+  setDate,
+  setFilterText,
+  setFilterDate,
+  setSelectValue,
+  setTasks,
+  delTasks
+} from "../../redux/actions/TaskActions";
 
 class Form extends React.Component {
   handleAddNews = data => {
